@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
+import Formulaire from "./Formulaire";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: "",
+      globalTitle: ""
+    }
+  }
+
+  onChange = (event) => {
+    this.setState({
+      title: event.target.value
+    })
+  }
+
+  onSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      globalTitle: `Mon formulaire - ${this.state.title}`
+    })
+  } 
+
+  componentDidMount() {
+    console.log("Formulaire rendu")
+  }
+
+  componentDidUpdate() {
+    console.log("Titre changé")
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Formulaire
+          globalTitle = {this.state.globalTitle}
+          title = {this.state.title}
+          onSubmit = {this.onSubmit}
+          onChange ={this.onChange} 
+        />
     </div>
-  );
+  )}
 }
 
 export default App;
